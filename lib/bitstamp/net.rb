@@ -1,7 +1,7 @@
 module Bitstamp
   module Net
     def self.to_uri(path)
-      return "https://www.bitstamp.net/api#{path}/"
+      return "https://www.bitstamp.net/api/v2#{path}/"
     end
 
     def self.get(path, options={})
