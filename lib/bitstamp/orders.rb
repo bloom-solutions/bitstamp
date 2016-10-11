@@ -20,7 +20,7 @@ module Bitstamp
     end
 
     def find(order_id)
-      Bitstamp::Helper.parse_objects! Bitstamp::Net::post("/order_status/",{ id: order_id }, false).to_str, self.model
+      JSON.parse Bitstamp::Net::post("/order_status/",{ id: order_id }, false)
     end
   end
 
@@ -28,7 +28,7 @@ module Bitstamp
     BUY  = 0
     SELL = 1
 
-    attr_accessor :type, :amount, :price, :id, :datetime
+    attr_accessor :type, :amount, :price, :id, :datetime, :status
     attr_accessor :error, :message
 
     def cancel!
