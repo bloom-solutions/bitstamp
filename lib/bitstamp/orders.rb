@@ -20,7 +20,7 @@ module Bitstamp
     end
 
     def find(order_id)
-      Bitstamp::Helper.parse_objects! Bitstamp::Net::post("/order_status/",{ id: order_id }).to_str, self.model
+      Bitstamp::Helper.parse_objects! Bitstamp::Net::post("/order_status/",{ id: order_id }, false).to_str, self.model
     end
   end
 
