@@ -20,10 +20,7 @@ module Bitstamp
     end
 
     def find(order_id)
-      all = self.all
-      index = all.index {|order| order.id.to_i == order_id}
-
-      return all[index] if index
+      Bitstamp::Helper.parse_objects! Bitstamp::Net::post("/order_status/",{ id: order_id }).to_str, self.model
     end
   end
 

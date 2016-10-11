@@ -1,23 +1,44 @@
 module Bitstamp
   module Net
+
+    def self.to_old_uri(path)
+      return "https://www.bitstamp.net/api/#{path}/"
+    end
+
     def self.to_uri(path)
       return "https://www.bitstamp.net/api/v2#{path}/"
     end
 
-    def self.get(path, options={})
-      RestClient.get(self.to_uri(path))
+    def self.get(path, options={}, v2=true)
+      unless v2
+        RestClient.get(self.to_old_uri(path))
+      else
+        RestClient.get(self.to_uri(path))
+      end
     end
 
-    def self.post(path, options={})
-      RestClient.post(self.to_uri(path), self.bitstamp_options(options))
+    def self.post(path, options={}, v2=true)
+      unless v2
+        RestClient.post(self.to_old_uri(path), self.bitstamp_options(options))
+      else
+        RestClient.post(self.to_uri(path), self.bitstamp_options(options))
+      end
     end
 
-    def self.patch(path, options={})
-      RestClient.put(self.to_uri(path), self.bitstamp_options(options))
+    def self.patch(path, options={}, v2=true)
+      unless v2
+        RestClient.put(self.to_old_uri(path), self.bitstamp_options(options))
+      else
+        RestClient.put(self.to_uri(path), self.bitstamp_options(options))
+      end
     end
 
-    def self.delete(path, options={})
-      RestClient.delete(self.to_uri(path), self.bitstamp_options(options))
+    def self.delete(path, options={}, v2=true)
+      unless v2
+        RestClient.delete(self.to_old_uri(path), self.bitstamp_options(options))
+      else
+        RestClient.delete(self.to_uri(path), self.bitstamp_options(options))
+      end
     end
 
     def self.bitstamp_options(options={})
